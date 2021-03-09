@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { apiKey } from './constants/apiKey';
 
-function App() {
+import { Cities } from './components';
+
+const citiesList = [
+  { id: 524894, name: 'Moscow' },
+  { id: 2, name: 'St-Petersburg' },
+];
+
+const App: React.FC = () => {
+  const [activeCity, setActiveCity] = useState(
+    `${citiesList[Math.floor(Math.random() * citiesList.length)].name}`
+  );
+  const [activeCityTemperature, setTemperature] = useState<any>();
+
+  useEffect(() => {
+    axios(
+      `http://api.openweathermap.org/data/2.5/find?q=${activeCity}&units=metric&appid=${apiKey}`
+    ).then(data => console.log(data.data));
+  }, [activeCity]);
+
+  const citySelectHandler = (cityId: number) => {
+    const selectedCity = citiesList.find(({ id }) => id === cityId);
+    return selectedCity ? setActiveCity(selectedCity.name) : null;
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <span>{`${activeCity} `}</span>
+      <span>{activeCityTemperature || 'Loading ...'}</span>
+      <Cities cities={citiesList} onSelect={citySelectHandler} />
     </div>
   );
-}
+};
 
 export default App;
