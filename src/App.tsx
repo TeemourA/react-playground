@@ -3,33 +3,59 @@ import axios from 'axios';
 import { apiKey } from './constants/apiKey';
 
 import { Cities } from './components';
+import { Loading } from './components';
 
 const citiesList = [
   { id: 524894, name: 'Moscow' },
-  { id: 2, name: 'St-Petersburg' },
+  { id: 536203, name: 'Saint Petersburg' },
 ];
 
 const App: React.FC = () => {
-  const [activeCity, setActiveCity] = useState(
-    `${citiesList[Math.floor(Math.random() * citiesList.length)].name}`
+  const [activeCityID, setActiveCityID] = useState(
+    citiesList[Math.floor(Math.random() * citiesList.length)].id
   );
-  const [activeCityTemperature, setTemperature] = useState<any>();
+  const [activeCityTemperature, setTemperature] = useState<{
+    temp: number;
+    feelsLike: number;
+  }>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     axios(
-      `http://api.openweathermap.org/data/2.5/find?q=${activeCity}&units=metric&appid=${apiKey}`
-    ).then(data => console.log(data.data));
-  }, [activeCity]);
+      `http://api.openweathermap.org/data/2.5/weather?id=${activeCityID}&units=metric&appid=${apiKey}`
+    ).then(data => {
+      const { temp, feels_like } = data.data.main;
+      console.log(data.data);
+      setTemperature(prevTempData => ({
+        ...prevTempData,
+        temp,
+        feelsLike: feels_like,
+      }));
+      setIsLoading(false);
+    });
+  }, [activeCityID]);
 
   const citySelectHandler = (cityId: number) => {
     const selectedCity = citiesList.find(({ id }) => id === cityId);
-    return selectedCity ? setActiveCity(selectedCity.name) : null;
+    return selectedCity ? setActiveCityID(cityId) : null;
   };
 
   return (
     <div className="App">
-      <span>{`${activeCity} `}</span>
-      <span>{activeCityTemperature || 'Loading ...'}</span>
+      <span>{`${
+        citiesList.find(city => city.id === activeCityID)?.name
+      } `}</span>
+      <span>
+        {activeCityTemperature && !isLoading ? (
+          <>
+            <p>{`Температура: ${activeCityTemperature.temp}℃`}</p>
+            <p>{`Ощущается как: ${activeCityTemperature.feelsLike}℃`}</p>
+          </>
+        ) : (
+          <Loading />
+        )}
+      </span>
       <Cities cities={citiesList} onSelect={citySelectHandler} />
     </div>
   );
