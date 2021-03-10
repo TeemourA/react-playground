@@ -6,13 +6,14 @@ import { Cities } from './components';
 import { Loading } from './components';
 
 const citiesList = [
-  { id: 524894, name: 'Moscow' },
-  { id: 536203, name: 'Saint Petersburg' },
+  { id: 524894, name: 'Москва' },
+  { id: 536203, name: 'Санкт-Петербург' },
+  {id: 472045, name: 'Воронеж'},
 ];
 
 const App: React.FC = () => {
-  const [activeCityID, setActiveCityID] = useState(
-    citiesList[Math.floor(Math.random() * citiesList.length)].id
+  const [activeCity, setActiveCity] = useState(
+    citiesList[Math.floor(Math.random() * citiesList.length)]
   );
   const [activeCityTemperature, setTemperature] = useState<{
     temp: number;
@@ -23,10 +24,9 @@ const App: React.FC = () => {
   useEffect(() => {
     setIsLoading(true);
     axios(
-      `http://api.openweathermap.org/data/2.5/weather?id=${activeCityID}&units=metric&appid=${apiKey}`
+      `http://api.openweathermap.org/data/2.5/weather?id=${activeCity.id}&units=metric&appid=${apiKey}`
     ).then(data => {
       const { temp, feels_like } = data.data.main;
-      console.log(data.data);
       setTemperature(prevTempData => ({
         ...prevTempData,
         temp,
@@ -34,17 +34,18 @@ const App: React.FC = () => {
       }));
       setIsLoading(false);
     });
-  }, [activeCityID]);
+  }, [activeCity]);
 
   const citySelectHandler = (cityId: number) => {
     const selectedCity = citiesList.find(({ id }) => id === cityId);
-    return selectedCity ? setActiveCityID(cityId) : null;
+    return selectedCity ? setActiveCity(selectedCity) : null;
   };
 
   return (
     <div className="App">
+      <Cities cities={citiesList} onSelect={citySelectHandler} />
       <span>{`${
-        citiesList.find(city => city.id === activeCityID)?.name
+        citiesList.find(city => city.id === activeCity.id)?.name
       } `}</span>
       <span>
         {activeCityTemperature && !isLoading ? (
@@ -56,7 +57,6 @@ const App: React.FC = () => {
           <Loading />
         )}
       </span>
-      <Cities cities={citiesList} onSelect={citySelectHandler} />
     </div>
   );
 };

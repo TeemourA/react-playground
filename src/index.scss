@@ -1,8 +1,22 @@
 .App {
+  display: flex;
   color: darkblue;
-  font-size: 4em;
+  font-size: 2em;
 }
 
+.Cities {
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+  .list {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+  }
+}
+
+// loading animation
 .lds-dual-ring {
   display: inline-block;
   width: 80px;

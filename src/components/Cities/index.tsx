@@ -14,7 +14,14 @@ const Cities: React.FC<CitiesProps> = props => {
     </li>
   ));
 
-  return <ul>{mappedCities}</ul>;
+  return (
+    <div className="Cities">
+      <figure>
+        <figcaption>Выберите город из списка:</figcaption>
+        <ul className="list">{mappedCities}</ul>
+      </figure>
+    </div>
+  );
 };
 
 export { Cities };
