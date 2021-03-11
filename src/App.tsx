@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
+import { makeRequest } from './http/makeRequest';
+import { debounce } from 'lodash';
 import { apiKey } from './constants/apiKey';
 
 import { Cities } from './components';
@@ -8,7 +9,7 @@ import { Loading } from './components';
 const citiesList = [
   { id: 524894, name: 'Москва' },
   { id: 536203, name: 'Санкт-Петербург' },
-  {id: 472045, name: 'Воронеж'},
+  { id: 472045, name: 'Воронеж' },
 ];
 
 const App: React.FC = () => {
@@ -20,12 +21,11 @@ const App: React.FC = () => {
     feelsLike: number;
   }>();
   const [isLoading, setIsLoading] = useState(false);
+  const [searchedCity, setSearchedCity] = useState('');
 
   useEffect(() => {
     setIsLoading(true);
-    axios(
-      `http://api.openweathermap.org/data/2.5/weather?id=${activeCity.id}&units=metric&appid=${apiKey}`
-    ).then(data => {
+    makeRequest(activeCity.id).then(data => {
       const { temp, feels_like } = data.data.main;
       setTemperature(prevTempData => ({
         ...prevTempData,
@@ -43,6 +43,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <input value={searchedCity} onChange={(e) => setSearchedCity(e.target.value)} />
       <Cities cities={citiesList} onSelect={citySelectHandler} />
       <span>{`${
         citiesList.find(city => city.id === activeCity.id)?.name
