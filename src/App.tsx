@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { makeRequest } from './http/makeRequest';
+import { makeRequestByID, makeRequestByName } from './http/makeRequest';
 import { debounce } from 'lodash';
 import { apiKey } from './constants/apiKey';
 
@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    makeRequest(activeCity.id).then(data => {
+    makeRequestByID(activeCity.id).then(data => {
       const { temp, feels_like } = data.data.main;
       setTemperature(prevTempData => ({
         ...prevTempData,
@@ -41,9 +41,30 @@ const App: React.FC = () => {
     return selectedCity ? setActiveCity(selectedCity) : null;
   };
 
+  const makeDebouncedRequest = useCallback(
+    debounce(
+      (cityName: string) =>
+        makeRequestByName(cityName)
+          .then(data => console.log(data.data))
+          .catch(e => console.log(e.message)),
+      500
+    ),
+    []
+  );
+
+  const cityInputHandler = (e: React.SyntheticEvent) => {
+    const cityName = (e.target as HTMLInputElement).value;
+    setSearchedCity(cityName);
+    makeDebouncedRequest(cityName);
+  };
+
   return (
     <div className="App">
-      <input value={searchedCity} onChange={(e) => setSearchedCity(e.target.value)} />
+      <input
+        placeholder="Введите название города..."
+        value={searchedCity}
+        onChange={cityInputHandler}
+      />
       <Cities cities={citiesList} onSelect={citySelectHandler} />
       <span>{`${
         citiesList.find(city => city.id === activeCity.id)?.name

@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { apiKey } from '../constants/apiKey';
 
-const makeRequest = (cityID: number) => {
-  return axios(
+const makeRequestByID = (cityID: number) =>
+  axios(
     `http://api.openweathermap.org/data/2.5/weather?id=${cityID}&units=metric&appid=${apiKey}`
   );
-};
 
-export { makeRequest };
+const makeRequestByName = (cityName: string) =>
+axios(
+  `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`
+);
+
+export { makeRequestByID, makeRequestByName };
