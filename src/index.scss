@@ -1,18 +1,17 @@
 .App {
-  display: flex;
   color: darkblue;
   font-size: 2em;
 }
 
-.Cities {
-  figure {
-    margin: 0;
-    padding: 0;
+.WeatherInfo {
+  .container {
+    border: 1px solid green;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 0 auto;
   }
-  .list {
-    margin: 0;
-    list-style: none;
-    padding: 0;
+
+  .title {
   }
 }
 

@@ -1,54 +1,50 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { makeRequestByID, makeRequestByName } from './http/makeRequest';
 import { debounce } from 'lodash';
-import { apiKey } from './constants/apiKey';
 
-import { Cities } from './components';
-import { Loading } from './components';
+import { Loading, WeatherInfo } from './components';
 
-const citiesList = [
-  { id: 524894, name: 'Москва' },
-  { id: 536203, name: 'Санкт-Петербург' },
-  { id: 472045, name: 'Воронеж' },
-];
+const baseCities = ['Moscow', 'Voronezh', 'Saint-Petersburg'];
 
 const App: React.FC = () => {
-  const [activeCity, setActiveCity] = useState(
-    citiesList[Math.floor(Math.random() * citiesList.length)]
-  );
-  const [activeCityTemperature, setTemperature] = useState<{
-    temp: number;
-    feelsLike: number;
-  }>();
+  const [activeCity, setActiveCity] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchedCity, setSearchedCity] = useState('');
+  const [searchResults, setSearchResults] = useState('');
 
-  useEffect(() => {
-    setIsLoading(true);
-    makeRequestByID(activeCity.id).then(data => {
-      const { temp, feels_like } = data.data.main;
-      setTemperature(prevTempData => ({
-        ...prevTempData,
-        temp,
-        feelsLike: feels_like,
-      }));
-      setIsLoading(false);
-    });
-  }, [activeCity]);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   makeRequestByID(activeCity.id).then(data => {
+  //     const { temp, feels_like } = data.data.main;
+  //     setTemperature(prevTempData => ({
+  //       ...prevTempData,
+  //       temp,
+  //       feelsLike: feels_like,
+  //     }));
+  //     setIsLoading(false);
+  //   });
+  // }, [activeCity]);
 
-  const citySelectHandler = (cityId: number) => {
-    const selectedCity = citiesList.find(({ id }) => id === cityId);
-    return selectedCity ? setActiveCity(selectedCity) : null;
-  };
+  // const citySelectHandler = (cityId: number) => {
+  //   const selectedCity = citiesList.find(({ id }) => id === cityId);
+  //   return selectedCity ? setActiveCity(selectedCity) : null;
+  // };
 
   const makeDebouncedRequest = useCallback(
-    debounce(
-      (cityName: string) =>
-        makeRequestByName(cityName)
-          .then(data => console.log(data.data))
-          .catch(e => console.log(e.message)),
-      500
-    ),
+    debounce((cityName: string) => {
+      setIsLoading(true);
+      makeRequestByName(cityName)
+        .then(data => {
+          setActiveCity(data.data);
+          setIsLoading(false);
+          console.log(data.data);
+        })
+        .catch(e => {
+          setActiveCity(null);
+          setIsLoading(false);
+          console.log(e.message);
+        });
+    }, 500),
     []
   );
 
@@ -65,20 +61,7 @@ const App: React.FC = () => {
         value={searchedCity}
         onChange={cityInputHandler}
       />
-      <Cities cities={citiesList} onSelect={citySelectHandler} />
-      <span>{`${
-        citiesList.find(city => city.id === activeCity.id)?.name
-      } `}</span>
-      <span>
-        {activeCityTemperature && !isLoading ? (
-          <>
-            <p>{`Температура: ${activeCityTemperature.temp}℃`}</p>
-            <p>{`Ощущается как: ${activeCityTemperature.feelsLike}℃`}</p>
-          </>
-        ) : (
-          <Loading />
-        )}
-      </span>
+      {isLoading ? <Loading /> : <WeatherInfo cityData={activeCity} />}
     </div>
   );
 };
