@@ -2,15 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { makeRequestByID, makeRequestByName } from './http/makeRequest';
 import { debounce } from 'lodash';
 
-import { Loading, WeatherInfo } from './components';
+import { SearchResults, WeatherInfo } from './components';
 
 const baseCities = ['Moscow', 'Voronezh', 'Saint-Petersburg'];
 
 const App: React.FC = () => {
   const [activeCity, setActiveCity] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchedCity, setSearchedCity] = useState('');
-  const [searchResults, setSearchResults] = useState('');
+  const [isFetching, setFething] = useState(false);
+  const [isSearhing, setSearching] = useState(false);
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -30,38 +31,39 @@ const App: React.FC = () => {
   //   return selectedCity ? setActiveCity(selectedCity) : null;
   // };
 
-  const makeDebouncedRequest = useCallback(
+  const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
-      setIsLoading(true);
+      // setIsLoading(true);
       makeRequestByName(cityName)
         .then(data => {
-          setActiveCity(data.data);
-          setIsLoading(false);
+          setSearchResults([data.data]);
+          // setIsLoading(false);
           console.log(data.data);
         })
         .catch(e => {
-          setActiveCity(null);
-          setIsLoading(false);
+          setSearchResults([]);
+          // setIsLoading(false);
           console.log(e.message);
         });
     }, 500),
     []
   );
 
-  const cityInputHandler = (e: React.SyntheticEvent) => {
+  const searchInputHandler = (e: React.SyntheticEvent) => {
     const cityName = (e.target as HTMLInputElement).value;
-    setSearchedCity(cityName);
-    makeDebouncedRequest(cityName);
+    setSearchInputValue(cityName);
+    makeDebouncedRequestByName(cityName);
   };
 
   return (
     <div className="App">
       <input
         placeholder="Введите название города..."
-        value={searchedCity}
-        onChange={cityInputHandler}
+        value={searchInputValue}
+        onChange={searchInputHandler}
       />
-      {isLoading ? <Loading /> : <WeatherInfo cityData={activeCity} />}
+      <SearchResults searchResults={searchResults} />
+      <WeatherInfo cityData={activeCity} isFetching={isFetching} />
     </div>
   );
 };

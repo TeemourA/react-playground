@@ -1,17 +1,47 @@
-.App {
-  color: darkblue;
-  font-size: 2em;
-}
+@import 'normalize.css';
 
 .WeatherInfo {
   .container {
-    border: 1px solid green;
+    border: 1px solid #cccccc;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    flex: 1 0 auto;
+    min-height: 30vh;
   }
 
   .title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .info {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .placeholder {
+    width: 100px;
+    height: 100px;
+
+    img {
+      width: 100%;
+      height: 100%;
+
+      &.loading {
+        animation: rotate 1.2s linear infinite;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
   }
 }
 
