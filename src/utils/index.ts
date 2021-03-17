@@ -1,1 +1,1 @@
-export { getCurrentDate } from './getCurrentDate';
+export { getCurrentDate, getTimeFromMs } from './time';

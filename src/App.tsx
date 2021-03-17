@@ -33,17 +33,27 @@ const App: React.FC = () => {
 
   const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
-      // setIsLoading(true);
       makeRequestByName(cityName)
         .then(data => {
           setSearchResults([data.data]);
-          // setIsLoading(false);
-          console.log(data.data);
         })
         .catch(e => {
           setSearchResults([]);
-          // setIsLoading(false);
-          console.log(e.message);
+          console.error(e.message);
+        });
+    }, 500),
+    []
+  );
+
+  const makeDebouncedRequestByID = useCallback(
+    debounce((cityID: string | number) => {
+      makeRequestByID(cityID)
+        .then(data => {
+          setSearchResults([data.data]);
+        })
+        .catch(e => {
+          setSearchResults([]);
+          console.error(e.message);
         });
     }, 500),
     []

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getCurrentDate } from '../utils';
+import { getCurrentDate, getTimeFromMs } from '../utils';
 import sun from '../assets/icons/sun.png';
 
 interface WeatherInfoProps {
@@ -9,6 +9,7 @@ interface WeatherInfoProps {
 
 const WeatherInfo: React.FC<WeatherInfoProps> = props => {
   const { cityData, isFetching } = props;
+
   const iconClassName = isFetching ? 'loading' : '';
 
   return (
@@ -22,12 +23,17 @@ const WeatherInfo: React.FC<WeatherInfoProps> = props => {
             <div className="info">
               <p>Temp: {cityData.main.temp}℃</p>
               <p>Feels like: {cityData.main.feels_like}℃</p>
-              <div>Details:</div>
+              <div>
+                Details:
+                <p>Sunrise: {getTimeFromMs(cityData?.sys.sunrise)}</p>
+                <p>Sunset: {getTimeFromMs(cityData?.sys.sunset)}</p>
+              </div>
             </div>
           </>
         ) : (
           <div className="placeholder">
             <img className={iconClassName} src={sun} alt="cloud icon" />
+            <span>Forecast will be shown here</span>
           </div>
         )}
       </div>

@@ -10,7 +10,9 @@ const SearchResults: React.FC<SearchResultsProps> = props => {
   return (
     <div>
       {searchResults.map(city => (
-        <p>{JSON.stringify(city)}</p>
+        <div key={city.id}>
+          <h4>{`${city.name}, ${city.sys.country}`}</h4>
+        </div>
       ))}
     </div>
   );

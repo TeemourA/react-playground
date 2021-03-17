@@ -1,33 +1,55 @@
 @import 'normalize.css';
 
+.App {
+  input {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid transparent;
+    outline: none;
+    transition: all 0.3s linear;
+    background-color: #ccc;
+  }
+
+  input:focus {
+    border-bottom: 2px solid blue;
+  }
+}
+
 .WeatherInfo {
   .container {
-    border: 1px solid #cccccc;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     min-height: 30vh;
-  }
 
-  .title {
-    width: 100%;
-    text-align: center;
-  }
+    .title {
+      width: 100%;
+      text-align: center;
+    }
 
-  .info {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+    .info {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
   }
 
   .placeholder {
-    width: 100px;
-    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      flex-basis: 100%;
+      text-align: center;
+      padding-top: 10px;
+    }
 
     img {
-      width: 100%;
-      height: 100%;
+      height: 100px;
+      width: 100px;
 
       &.loading {
         animation: rotate 1.2s linear infinite;
