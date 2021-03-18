@@ -76,7 +76,7 @@ const App: React.FC = () => {
       <header>
         <h1>Weather App</h1>
         <input
-          placeholder="Введите название города..."
+          placeholder="Find city..."
           value={searchInputValue}
           onChange={searchInputHandler}
         />
