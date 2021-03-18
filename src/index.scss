@@ -2,6 +2,11 @@
 @import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+$brand: rgb(187, 245, 247);
+$headerHeight: 10vh;
+$searchResultsHeight: 10vh;
+$weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
+
 * {
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
@@ -12,36 +17,40 @@
     display: flex;
     align-items: center;
     padding: 0 10px;
-    height: 10vh;
+    height: $headerHeight;
     background-color: #ccc;
-  }
+    border-bottom: 5px solid $brand;
 
-  h1 {
-    margin: 0;
-    margin-left: 1em;
-    padding: 0.2em;
-    background-color: rgb(187, 245, 247);
-    border-radius: 0.2em;
-    box-shadow: -5px 5px 5px gray;
+    h1 {
+      position: absolute;
 
-    font-size: 1.5em;
-    font-weight: bold;
-    text-transform: lowercase;
-    letter-spacing: -2px;
-  }
+      margin: 0;
+      margin-left: 1em;
+      padding: 0.2em;
+      background-color: $brand;
+      border-radius: 0.2em;
+      box-shadow: -5px 5px 5px gray;
 
-  input {
-    display: block;
-    margin: 0 auto;
-    border: 2px solid transparent;
-    outline: none;
-    transition: all 0.3s linear;
-    background-color: #ccc;
-    text-align: center;
-  }
+      font-size: 1.5em;
+      font-weight: bold;
+      text-transform: lowercase;
+      letter-spacing: -2px;
+    }
 
-  input:focus {
-    border-bottom: 2px solid blue;
+    input:focus {
+      border-bottom: 2px solid blue;
+    }
+
+    input {
+      display: block;
+      margin: 0 auto;
+      border: 2px solid transparent;
+      outline: none;
+      transition: all 0.3s linear;
+      background-color: #ccc;
+      text-align: center;
+      align-self: center;
+    }
   }
 }
 
@@ -52,8 +61,8 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    min-height: 50vh;
-    background-color: lightyellow;
+    min-height: $weatherInfoHeight;
+    background-color: darkslategray;
 
     .title {
       width: 100%;
@@ -86,29 +95,47 @@
     justify-content: center;
     align-items: center;
 
+    .icon {
+      color: #fff;
+      font-size: 3em;
+      text-shadow: 5px 5px 5px skyblue;
+    }
+
     span {
       flex-basis: 100%;
       text-align: center;
       padding-top: 10px;
+      color: #fff;
     }
+  }
+}
 
-    img {
-      height: 100px;
-      width: 100px;
+.SearchResults {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: $searchResultsHeight;
 
-      &.loading {
-        animation: rotate 1.2s linear infinite;
-      }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $searchResultsHeight / 2;
+    width: 20%;
+    border-radius: 2em;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 0px gray;
+    transition: all 0.1s linear;
 
-      @keyframes rotate {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    }
+    border: 2px solid #ccc;
+  }
+
+  .item:hover {
+    box-shadow: 0px 2px 7px 0px black;
+  }
+
+  h4 {
+    margin: 0;
   }
 }
 

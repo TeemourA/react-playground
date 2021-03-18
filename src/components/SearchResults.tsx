@@ -9,9 +9,9 @@ const SearchResults: React.FC<SearchResultsProps> = props => {
   const { searchResults, getCityData } = props;
 
   return (
-    <div>
+    <div className="SearchResults">
       {searchResults.map(city => (
-        <div key={city.id} onClick={() => getCityData(city.id)}>
+        <div className="item" key={city.id} onClick={() => getCityData(city.id)}>
           <h4>{`${city.name}, ${city.sys.country}`}</h4>
         </div>
       ))}

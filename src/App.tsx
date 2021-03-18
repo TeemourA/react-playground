@@ -46,6 +46,8 @@ const App: React.FC = () => {
   );
 
   const handleSearchResultClick = (cityID: number) => {
+    setSearchInputValue('');
+    setSearchResults([]);
     setFething(true);
     makeRequestByID(cityID)
       .then(data => {
@@ -65,21 +67,25 @@ const App: React.FC = () => {
     makeDebouncedRequestByName(cityName);
   };
 
+  const clearWeatherInfoHandler = () => {
+    setActiveCity(null);
+  };
+
   return (
     <div className="App">
       <header>
         <h1>Weather App</h1>
+        <input
+          placeholder="Введите название города..."
+          value={searchInputValue}
+          onChange={searchInputHandler}
+        />
       </header>
-      <input
-        placeholder="Введите название города..."
-        value={searchInputValue}
-        onChange={searchInputHandler}
-      />
       <SearchResults
         searchResults={searchResults}
         getCityData={handleSearchResultClick}
       />
-      <WeatherInfo cityData={activeCity} isFetching={isFetching} />
+      <WeatherInfo cityData={activeCity} isFetching={isFetching} clear={clearWeatherInfoHandler} />
     </div>
   );
 };

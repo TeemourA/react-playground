@@ -6,10 +6,11 @@ import sun from '../assets/icons/sun.png';
 interface WeatherInfoProps {
   cityData: any;
   isFetching: boolean;
+  clear: () => void;
 }
 
 const WeatherInfo: React.FC<WeatherInfoProps> = props => {
-  const { cityData, isFetching } = props;
+  const { cityData, isFetching, clear } = props;
 
   return (
     <div className="WeatherInfo">
@@ -28,13 +29,13 @@ const WeatherInfo: React.FC<WeatherInfoProps> = props => {
                 <p>Sunset: {getTimeFromMs(cityData?.sys.sunset)}</p>
               </div>
             </div>
-            <i className="far fa-times-circle close-button"></i>
+            <i className="far fa-times-circle close-button" onClick={clear}></i>
           </>
         ) : isFetching ? (
           <Loading />
         ) : (
           <div className="placeholder">
-            <img src={sun} alt="cloud icon" />
+            <i className="fas fa-cloud-sun-rain icon"></i>
             <span>Forecast will be shown here</span>
           </div>
         )}
