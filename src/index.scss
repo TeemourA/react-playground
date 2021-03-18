@@ -37,12 +37,9 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       letter-spacing: -2px;
     }
 
-    input:focus {
-      border-bottom: 2px solid blue;
-    }
-
     input {
       display: block;
+      width: 30%;
       margin: 0 auto;
       border: 2px solid transparent;
       outline: none;
@@ -50,6 +47,10 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       background-color: #ccc;
       text-align: center;
       align-self: center;
+    }
+
+    input:focus {
+      border-bottom: 2px solid blue;
     }
   }
 }
