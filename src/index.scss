@@ -1,6 +1,35 @@
 @import 'normalize.css';
+@import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+}
 
 .App {
+  header {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    height: 10vh;
+    background-color: #ccc;
+  }
+
+  h1 {
+    margin: 0;
+    margin-left: 1em;
+    padding: 0.2em;
+    background-color: rgb(187, 245, 247);
+    border-radius: 0.2em;
+    box-shadow: -5px 5px 5px gray;
+
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: lowercase;
+    letter-spacing: -2px;
+  }
+
   input {
     display: block;
     margin: 0 auto;
@@ -8,6 +37,7 @@
     outline: none;
     transition: all 0.3s linear;
     background-color: #ccc;
+    text-align: center;
   }
 
   input:focus {
@@ -17,11 +47,13 @@
 
 .WeatherInfo {
   .container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    min-height: 30vh;
+    min-height: 50vh;
+    background-color: lightyellow;
 
     .title {
       width: 100%;
@@ -32,6 +64,19 @@
       width: 100%;
       display: flex;
       justify-content: space-around;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 2em;
+      right: 2em;
+      cursor: pointer;
+      font-size: 1.5em;
+      transition: all 0.2s linear;
+    }
+
+    .close-button:hover {
+      color: gray;
     }
   }
 

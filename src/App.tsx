@@ -45,19 +45,19 @@ const App: React.FC = () => {
     []
   );
 
-  const makeDebouncedRequestByID = useCallback(
-    debounce((cityID: string | number) => {
-      makeRequestByID(cityID)
-        .then(data => {
-          setSearchResults([data.data]);
-        })
-        .catch(e => {
-          setSearchResults([]);
-          console.error(e.message);
-        });
-    }, 500),
-    []
-  );
+  const handleSearchResultClick = (cityID: number) => {
+    setFething(true);
+    makeRequestByID(cityID)
+      .then(data => {
+        setFething(false);
+        setActiveCity(data.data);
+      })
+      .catch(e => {
+        setFething(false);
+        setActiveCity(null);
+        console.error(e.message);
+      });
+  };
 
   const searchInputHandler = (e: React.SyntheticEvent) => {
     const cityName = (e.target as HTMLInputElement).value;
@@ -67,12 +67,18 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <header>
+        <h1>Weather App</h1>
+      </header>
       <input
         placeholder="Введите название города..."
         value={searchInputValue}
         onChange={searchInputHandler}
       />
-      <SearchResults searchResults={searchResults} />
+      <SearchResults
+        searchResults={searchResults}
+        getCityData={handleSearchResultClick}
+      />
       <WeatherInfo cityData={activeCity} isFetching={isFetching} />
     </div>
   );
