@@ -1,44 +1,27 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeRequestByID, makeRequestByName } from './http/makeRequest';
 import { debounce } from 'lodash';
 
 import { SearchResults, WeatherInfo } from './components';
 
-const baseCities = ['Moscow', 'Voronezh', 'Saint-Petersburg'];
-
 const App: React.FC = () => {
   const [activeCity, setActiveCity] = useState(null);
-  const [isFetching, setFething] = useState(false);
-  const [isSearhing, setSearching] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   makeRequestByID(activeCity.id).then(data => {
-  //     const { temp, feels_like } = data.data.main;
-  //     setTemperature(prevTempData => ({
-  //       ...prevTempData,
-  //       temp,
-  //       feelsLike: feels_like,
-  //     }));
-  //     setIsLoading(false);
-  //   });
-  // }, [activeCity]);
-
-  // const citySelectHandler = (cityId: number) => {
-  //   const selectedCity = citiesList.find(({ id }) => id === cityId);
-  //   return selectedCity ? setActiveCity(selectedCity) : null;
-  // };
+  const [notFound, setNotFound] = useState(false);
+  const [isFetching, setFething] = useState(false);
+  // const [isSearhing, setSearching] = useState(false);
 
   const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
       makeRequestByName(cityName)
         .then(data => {
           setSearchResults([data.data]);
+          setNotFound(false);
         })
         .catch(e => {
           setSearchResults([]);
+          setNotFound(true);
           console.error(e.message);
         });
     }, 500),
@@ -53,6 +36,7 @@ const App: React.FC = () => {
       .then(data => {
         setFething(false);
         setActiveCity(data.data);
+        console.log(data.data);
       })
       .catch(e => {
         setFething(false);
@@ -84,8 +68,14 @@ const App: React.FC = () => {
       <SearchResults
         searchResults={searchResults}
         getCityData={handleSearchResultClick}
+        notFound={notFound}
+        searchedCity={searchInputValue}
       />
-      <WeatherInfo cityData={activeCity} isFetching={isFetching} clear={clearWeatherInfoHandler} />
+      <WeatherInfo
+        cityData={activeCity}
+        isFetching={isFetching}
+        clear={clearWeatherInfoHandler}
+      />
     </div>
   );
 };

@@ -55,6 +55,35 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
   }
 }
 
+.SearchResults {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: $searchResultsHeight;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $searchResultsHeight / 2;
+    width: 20%;
+    border-radius: 2em;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 0px gray;
+    transition: all 0.1s linear;
+
+    border: 2px solid #ccc;
+  }
+
+  .item:hover {
+    box-shadow: 0px 2px 7px 0px black;
+  }
+
+  h4 {
+    margin: 0;
+  }
+}
+
 .WeatherInfo {
   .container {
     position: relative;
@@ -64,6 +93,7 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
     flex-wrap: wrap;
     min-height: $weatherInfoHeight;
     background-color: darkslategray;
+    color: #fff;
 
     .title {
       width: 100%;
@@ -99,7 +129,30 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
     .icon {
       color: #fff;
       font-size: 3em;
-      text-shadow: 5px 5px 5px skyblue;
+      // text-shadow: 5px 5px 5px skyblue;
+      animation: pulse 2s linear infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      25% {
+        transform: scale(1.2);
+      }
+
+      50% {
+        transform: scale(1);
+      }
+
+      75% {
+        transform: scale(0.8);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     span {
@@ -108,35 +161,6 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       padding-top: 10px;
       color: #fff;
     }
-  }
-}
-
-.SearchResults {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: $searchResultsHeight;
-
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: $searchResultsHeight / 2;
-    width: 20%;
-    border-radius: 2em;
-    cursor: pointer;
-    box-shadow: 0px 2px 5px 0px gray;
-    transition: all 0.1s linear;
-
-    border: 2px solid #ccc;
-  }
-
-  .item:hover {
-    box-shadow: 0px 2px 7px 0px black;
-  }
-
-  h4 {
-    margin: 0;
   }
 }
 
