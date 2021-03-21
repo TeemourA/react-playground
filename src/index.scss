@@ -13,11 +13,15 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 }
 
 .App {
+  display: grid;
+  grid-template: 10vh 10vh 80vh / 25px 1fr 1fr 25px;
+
   header {
     display: flex;
     align-items: center;
-    padding: 0 10px;
-    height: $headerHeight;
+    // padding: 0 10px;
+    grid-column: 1 / -1;
+    grid-row: 1;
     background-color: #ccc;
     border-bottom: 5px solid $brand;
 
@@ -56,16 +60,18 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 }
 
 .SearchResults {
+  grid-column: 1 / -1;
+  grid-row: 2;
+
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: $searchResultsHeight;
 
   .item {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: $searchResultsHeight / 2;
+    height: 50%;
     width: 20%;
     border-radius: 2em;
     cursor: pointer;
@@ -85,6 +91,9 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 }
 
 .WeatherInfo {
+  grid-column: 1 / -1;
+  grid-row: 3;
+
   .container {
     position: relative;
     display: flex;
@@ -177,8 +186,8 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid #fcf;
-    border-color: #fcf transparent #fcf transparent;
+    border: 6px solid $brand;
+    border-color: $brand transparent $brand transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }
 
