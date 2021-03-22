@@ -38,21 +38,63 @@ const WeatherInfo: React.FC<WeatherInfoProps> = props => {
             </div>
             <div className="info-container">
               <section className="info-section-1">
-                <p>Temp: {Math.round(cityData.main.temp)} ℃</p>
-                <p>Feels like: {Math.round(cityData.main.feels_like)} ℃</p>
-                <p>Clouds cover: {cityData.clouds.all}%</p>
+                <p className="info-item">
+                  <span className="title">Temp</span>
+                  <span className="data">
+                    {Math.round(cityData.main.temp)} ℃
+                  </span>
+                </p>
+                <p className="info-item">
+                  <span className="title">Feels like</span>
+                  <span className="data">
+                    {Math.round(cityData.main.feels_like)} ℃
+                  </span>
+                </p>
+                <p className="info-item">
+                  <span className="title">Cloud coverage</span>
+                  <span className="data">{cityData.clouds.all}%</span>
+                </p>
               </section>
               <section className="info-section-2">
-                <p>
-                  Wind: {cityData.wind.speed}m/s |{' '}
-                  {translateAngleToDirection(cityData.wind.deg)}
+                <p className="info-item">
+                  <span className="title">Wind</span>
+                  <span className="data">
+                    {cityData.wind.speed}m/s |
+                    {` ${translateAngleToDirection(cityData.wind.deg)}`}
+                  </span>
                 </p>
-                <p>Pressure: {cityData.main.pressure * 0.75} MMC</p>
-                <p>Visibility: {cityData.visibility / 1000}km</p>
+                <p className="info-item">
+                  <span className="title">Pressure</span>
+                  <span className="data">
+                    {cityData.main.pressure * 0.75} MMC
+                  </span>
+                </p>
+                <p className="info-item">
+                  <span className="title">Visibility</span>
+                  <span className="data">
+                    {(cityData.visibility / 1000).toFixed(1)}km
+                  </span>
+                </p>
               </section>
               <section className="info-section-3">
-                <p>Sunrise: {getTimeFromMs(cityData?.sys.sunrise)}</p>
-                <p>Sunset: {getTimeFromMs(cityData?.sys.sunset)}</p>
+              <p className="info-item">
+                  <span className="title">Humidity</span>
+                  <span className="data">
+                    {cityData.main.humidity}%
+                  </span>
+                </p>
+                <p className="info-item">
+                  <span className="title">Sunrise</span>
+                  <span className="data">
+                    {getTimeFromMs(cityData.sys.sunrise)}
+                  </span>
+                </p>
+                <p className="info-item">
+                  <span className="title">Sunset</span>
+                  <span className="data">
+                    {getTimeFromMs(cityData.sys.sunset)}
+                  </span>
+                </p>
               </section>
             </div>
             <i className="far fa-times-circle close-button" onClick={clear}></i>
