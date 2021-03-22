@@ -1,4 +1,4 @@
-export { Cities } from './Cities';
-export { Loading } from './Loading';
-export { WeatherInfo } from './WeatherInfo';
-export { SearchResults } from './SearchResults';
+export { Cities } from './Cities/Cities';
+export { Loading } from './Loading/Loading';
+export { WeatherInfo } from './WeatherInfo/WeatherInfo';
+export { SearchResults } from './SearchResults/SearchResults';

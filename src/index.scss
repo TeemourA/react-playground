@@ -96,23 +96,48 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 
   .container {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+
+    display: grid;
+    grid-template: 33.3% 33.3% 33.3% / 25px 1fr 1fr 1fr 25px;
     min-height: $weatherInfoHeight;
     background-color: darkslategray;
-    color: #fff;
 
-    .title {
-      width: 100%;
-      text-align: center;
+    .title-container {
+      grid-column: 2 / 5;
+      align-self: center;
+      justify-self: center;
     }
 
-    .info {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
+    .info-container {
+      grid-column: 1 / -1;
+      grid-row: 2 / -1;
+
+      display: grid;
+      grid-template: 1fr / 25px repeat(5, 1fr) 25px;
+      justify-content: center;
+
+      .info-section-1,
+      .info-section-2,
+      .info-section-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+
+        p {
+          font-size: 1.2em;
+        }
+      }
+
+      .info-section-1 {
+        grid-column: 3;
+      }
+      .info-section-2 {
+        grid-column: 4;
+      }
+      .info-section-3 {
+        grid-column: 5;
+      }
     }
 
     .close-button {
