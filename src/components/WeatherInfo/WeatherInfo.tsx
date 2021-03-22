@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading } from '../index';
+import { InfoSection, InfoItem, Loading } from '../index';
 import {
   getCurrentDate,
   getTimeFromMs,
@@ -37,65 +37,50 @@ const WeatherInfo: React.FC<WeatherInfoProps> = props => {
               </figure>
             </div>
             <div className="info-container">
-              <section className="info-section-1">
-                <p className="info-item">
-                  <span className="title">Temp</span>
-                  <span className="data">
-                    {Math.round(cityData.main.temp)} ℃
-                  </span>
-                </p>
-                <p className="info-item">
-                  <span className="title">Feels like</span>
-                  <span className="data">
-                    {Math.round(cityData.main.feels_like)} ℃
-                  </span>
-                </p>
-                <p className="info-item">
-                  <span className="title">Cloud coverage</span>
-                  <span className="data">{cityData.clouds.all}%</span>
-                </p>
-              </section>
-              <section className="info-section-2">
-                <p className="info-item">
-                  <span className="title">Wind</span>
-                  <span className="data">
-                    {cityData.wind.speed}m/s |
-                    {` ${translateAngleToDirection(cityData.wind.deg)}`}
-                  </span>
-                </p>
-                <p className="info-item">
-                  <span className="title">Pressure</span>
-                  <span className="data">
-                    {cityData.main.pressure * 0.75} MMC
-                  </span>
-                </p>
-                <p className="info-item">
-                  <span className="title">Visibility</span>
-                  <span className="data">
-                    {(cityData.visibility / 1000).toFixed(1)}km
-                  </span>
-                </p>
-              </section>
-              <section className="info-section-3">
-              <p className="info-item">
-                  <span className="title">Humidity</span>
-                  <span className="data">
-                    {cityData.main.humidity}%
-                  </span>
-                </p>
-                <p className="info-item">
-                  <span className="title">Sunrise</span>
-                  <span className="data">
-                    {getTimeFromMs(cityData.sys.sunrise)}
-                  </span>
-                </p>
-                <p className="info-item">
-                  <span className="title">Sunset</span>
-                  <span className="data">
-                    {getTimeFromMs(cityData.sys.sunset)}
-                  </span>
-                </p>
-              </section>
+              <InfoSection className="info-section-1">
+                <InfoItem
+                  title="Temp"
+                  data={`${Math.round(cityData.main.temp)} ℃`}
+                />
+                <InfoItem
+                  title="Feels like"
+                  data={`${Math.round(cityData.main.feels_like)} ℃`}
+                />
+                <InfoItem
+                  title="Cloud coverage"
+                  data={`${cityData.clouds.all}%`}
+                />
+              </InfoSection>
+              <InfoSection className="info-section-2">
+                <InfoItem
+                  title="Wind"
+                  data={`${
+                    cityData.wind.speed
+                  } m/s | ${translateAngleToDirection(cityData.wind.deg)}`}
+                />
+                <InfoItem
+                  title="Pressure"
+                  data={`${cityData.main.pressure * 0.75} MMC`}
+                />
+                <InfoItem
+                  title="Visibility"
+                  data={`${(cityData.visibility / 1000).toFixed(1)}km`}
+                />
+              </InfoSection>
+              <InfoSection className="info-section-3">
+                <InfoItem
+                  title="Humidity"
+                  data={`${cityData.main.humidity}%`}
+                />
+                <InfoItem
+                  title="Sunrise"
+                  data={getTimeFromMs(cityData.sys.sunrise)}
+                />
+                <InfoItem
+                  title="Sunset"
+                  data={getTimeFromMs(cityData.sys.sunset)}
+                />
+              </InfoSection>
             </div>
             <i className="far fa-times-circle close-button" onClick={clear}></i>
           </>

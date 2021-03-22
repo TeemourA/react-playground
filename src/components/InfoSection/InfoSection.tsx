@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface InfoSectionProps {
-  className: string;
+  className?: string;
 };
 
 const InfoSection: React.FC<InfoSectionProps> = props => {
