@@ -35,7 +35,7 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       border-radius: 0.2em;
       box-shadow: -5px 5px 5px gray;
 
-      font-size: 1.5em;
+      font-size: 1.7em;
       font-weight: bold;
       text-transform: lowercase;
       letter-spacing: -2px;
@@ -221,11 +221,11 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       right: 2em;
       cursor: pointer;
       font-size: 1.5em;
-      transition: all 0.2s linear;
+      transition: all 0.1s linear;
     }
 
     .close-button:hover {
-      color: gray;
+      color: rgb(221, 133, 133);
     }
   }
 

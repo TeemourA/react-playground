@@ -58,7 +58,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header>
-        <h1>Weather App</h1>
+        <h1>GetWeather</h1>
         <input
           placeholder="Find city..."
           value={searchInputValue}
