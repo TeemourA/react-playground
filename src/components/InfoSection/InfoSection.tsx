@@ -7,6 +7,6 @@ interface InfoSectionProps {
 const InfoSection: React.FC<InfoSectionProps> = props => {
   const { className, children } = props;
 
-  return <section className={className || ''}>{children}</section>;
+  return <section className={className ?? ''}>{children}</section>;
 };
 export { InfoSection };

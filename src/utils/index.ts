@@ -1,2 +1,8 @@
-export { getCurrentDate, getTimeFromMs } from './time';
+export {
+  getCurrentDate,
+  convertDateToTime,
+  getDateFromTimezone,
+  getDateFromMs,
+} from './time';
 export { translateAngleToDirection } from './translateAngleToDirection';
+export { processCityData } from './processCityData';

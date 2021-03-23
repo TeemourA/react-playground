@@ -1,10 +1,6 @@
 import React from 'react';
 import { InfoSection, InfoItem, Loading } from '../index';
-import {
-  getCurrentDate,
-  getTimeFromMs,
-  translateAngleToDirection,
-} from '../../utils';
+import { getCurrentDate, processCityData } from '../../utils';
 
 interface WeatherInfoProps {
   cityData: any;
@@ -14,72 +10,44 @@ interface WeatherInfoProps {
 
 const WeatherInfo: React.FC<WeatherInfoProps> = props => {
   const { cityData, isFetching, clear } = props;
-  const data = {
-    weatherIcon: `http://openweathermap.org/img/wn/${cityData?.weather[0].icon}@2x.png`,
-  };
+  const data = processCityData(cityData);
 
   return (
     <div className="WeatherInfo">
       <div className="container">
         {cityData && !isFetching ? (
           <>
-            <div className="title-container">
-              <h3 className="title">{`${cityData.name}, ${
-                cityData.sys.country
-              } on ${getCurrentDate()}`}</h3>
+            <div className="title">
+              <div className="title__plate">
+                <h3 className="title__text">{`${data.name}, ${
+                  data.country
+                } on ${getCurrentDate()}`}</h3>
+                <span className="title__time">{`Local time: ${data.localTime}`}</span>
+              </div>
               <figure>
                 <img
                   src={data.weatherIcon}
-                  alt={cityData.weather[0].description}
-                  title={cityData.weather[0].description}
+                  alt={data.iconDescription}
+                  title={data.iconDescription}
                 />
-                <figcaption>{cityData.weather[0].description}</figcaption>
+                <figcaption>{data.iconDescription}</figcaption>
               </figure>
             </div>
-            <div className="info-container">
-              <InfoSection className="info-section-1">
-                <InfoItem
-                  title="Temp"
-                  data={`${Math.round(cityData.main.temp)} ℃`}
-                />
-                <InfoItem
-                  title="Feels like"
-                  data={`${Math.round(cityData.main.feels_like)} ℃`}
-                />
-                <InfoItem
-                  title="Cloud coverage"
-                  data={`${cityData.clouds.all}%`}
-                />
+            <div className="info">
+              <InfoSection className="info__section-1">
+                <InfoItem title="Temp" data={data.temp} />
+                <InfoItem title="Feels like" data={data.feelsLike} />
+                <InfoItem title="Cloud coverage" data={data.cloudCoverage} />
               </InfoSection>
-              <InfoSection className="info-section-2">
-                <InfoItem
-                  title="Wind"
-                  data={`${
-                    cityData.wind.speed
-                  } m/s | ${translateAngleToDirection(cityData.wind.deg)}`}
-                />
-                <InfoItem
-                  title="Pressure"
-                  data={`${cityData.main.pressure * 0.75} MMC`}
-                />
-                <InfoItem
-                  title="Visibility"
-                  data={`${(cityData.visibility / 1000).toFixed(1)}km`}
-                />
+              <InfoSection className="info__section-2">
+                <InfoItem title="Wind" data={data.wind} />
+                <InfoItem title="Pressure" data={data.pressure} />
+                <InfoItem title="Visibility" data={data.visibility} />
               </InfoSection>
-              <InfoSection className="info-section-3">
-                <InfoItem
-                  title="Humidity"
-                  data={`${cityData.main.humidity}%`}
-                />
-                <InfoItem
-                  title="Sunrise"
-                  data={getTimeFromMs(cityData.sys.sunrise)}
-                />
-                <InfoItem
-                  title="Sunset"
-                  data={getTimeFromMs(cityData.sys.sunset)}
-                />
+              <InfoSection className="info__section-3">
+                <InfoItem title="Humidity" data={data.humidity} />
+                <InfoItem title="Sunrise" data={data.sunriseTime} />
+                <InfoItem title="Sunset" data={data.sunsetTime} />
               </InfoSection>
             </div>
             <i className="far fa-times-circle close-button" onClick={clear}></i>
