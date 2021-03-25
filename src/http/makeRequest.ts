@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { apiKey } from '../constants/apiKey';
 
-const makeRequestByID = (cityID: number | string) =>
+const fetchDataByID = (cityID: number | string, daysCount?: number) =>
   axios(
-    `http://api.openweathermap.org/data/2.5/weather?id=${cityID}&units=metric&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/weather?id=${cityID}&units=metric&appid=${apiKey}`
   );
 
-const makeRequestByName = (cityName: string) =>
-axios(
-  `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`
-);
+const fetchDataByName = (cityName: string) =>
+  axios(
+    `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`
+  );
 
-export { makeRequestByID, makeRequestByName };
+const fetchDataByCoords = (coords: { lat: number; lon: number }) =>
+  axios(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${apiKey}`
+  );
+
+export { fetchDataByID, fetchDataByName, fetchDataByCoords };

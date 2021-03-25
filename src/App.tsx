@@ -1,11 +1,14 @@
 import React, { useState, useCallback } from 'react';
-import { makeRequestByID, makeRequestByName } from './http/makeRequest';
 import { debounce } from 'lodash';
-
+import {
+  fetchDataByID,
+  fetchDataByName,
+  fetchDataByCoords,
+} from './http/makeRequest';
 import { SearchResults, WeatherInfo } from './components';
 
 const App: React.FC = () => {
-  const [activeCity, setActiveCity] = useState(null);
+  const [activeCity, setActiveCity] = useState<any>(null);
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [notFound, setNotFound] = useState(false);
@@ -14,7 +17,7 @@ const App: React.FC = () => {
 
   const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
-      makeRequestByName(cityName)
+      fetchDataByName(cityName)
         .then(data => {
           setSearchResults([data.data]);
           setNotFound(false);
@@ -32,7 +35,7 @@ const App: React.FC = () => {
     setSearchInputValue('');
     setSearchResults([]);
     setFething(true);
-    makeRequestByID(cityID)
+    fetchDataByID(cityID)
       .then(data => {
         setFething(false);
         setActiveCity(data.data);
@@ -53,6 +56,12 @@ const App: React.FC = () => {
 
   const clearWeatherInfoHandler = () => {
     setActiveCity(null);
+  };
+
+  const handleTestButtonClick = () => {
+    fetchDataByCoords(activeCity?.coord)
+      .then(data => console.log(data.data))
+      .catch(e => console.error(e.message));
   };
 
   return (
@@ -76,6 +85,7 @@ const App: React.FC = () => {
         isFetching={isFetching}
         clear={clearWeatherInfoHandler}
       />
+      <button onClick={handleTestButtonClick}>BUTTON </button>
     </div>
   );
 };
