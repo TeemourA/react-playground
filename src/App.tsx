@@ -85,7 +85,7 @@ const App: React.FC = () => {
         isFetching={isFetching}
         clear={clearWeatherInfoHandler}
       />
-      <button onClick={handleTestButtonClick}>BUTTON </button>
+      <button onClick={handleTestButtonClick}>BUTTON</button>
     </div>
   );
 };
