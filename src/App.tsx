@@ -14,18 +14,21 @@ const App: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [isFetching, setFething] = useState(false);
-  // const [isSearhing, setSearching] = useState(false);
+  const [isSearhing, setSearching] = useState(true);
 
   const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
+      setSearching(true);
       fetchDataByName(cityName)
         .then(data => {
           setSearchResults([data.data]);
           setNotFound(false);
+          setSearching(false);
         })
         .catch(e => {
           setSearchResults([]);
           setNotFound(true);
+          setSearching(false);
           console.error(e.message);
         });
     }, 500),
@@ -50,6 +53,7 @@ const App: React.FC = () => {
   };
 
   const searchInputHandler = (e: React.SyntheticEvent) => {
+    setNotFound(false);
     const cityName = (e.target as HTMLInputElement).value;
     setSearchInputValue(cityName);
     makeDebouncedRequestByName(cityName);
@@ -82,6 +86,7 @@ const App: React.FC = () => {
         searchResults={searchResults}
         getCurrentData={handleCurrentDataClick}
         getEightDayData={handleEightDayClick}
+        isSearching={isSearhing}
         notFound={notFound}
         searchedCity={searchInputValue}
       />

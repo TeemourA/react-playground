@@ -19,7 +19,7 @@ const WeatherInfo: React.FC<WeatherInfoProps> = props => {
         ) : eightDaysData && !isFetching ? (
           <EightDaysData />
         ) : isFetching ? (
-          <Loading />
+          <Loading className="loading_weatherInfo" />
         ) : (
           <Placeholder />
         )}

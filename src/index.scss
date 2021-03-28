@@ -301,12 +301,7 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 }
 
 // loading animation
-.lds-dual-ring {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  justify-self: center;
-  align-self: center;
-
+.loading {
   display: inline-block;
   width: 80px;
   height: 80px;
@@ -320,15 +315,33 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
     border-radius: 50%;
     border: 6px solid $brand;
     border-color: $brand transparent $brand transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+    animation: loading 1.2s linear infinite;
   }
 
-  @keyframes lds-dual-ring {
+  @keyframes loading {
     0% {
       transform: rotate(0deg);
     }
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  &_small::after {
+    width: 15px;
+    height: 15px;
+  }
+
+  &_weatherInfo {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    justify-self: center;
+    align-self: center;
+  }
+
+  &_searchResults {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

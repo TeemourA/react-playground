@@ -1,7 +1,9 @@
 import React from 'react';
+import { Loading } from '../index';
 
 interface SearchResultsProps {
   searchResults: any[];
+  isSearching: boolean;
   notFound: boolean;
   searchedCity: string;
   getCurrentData: (cityID: number) => void;
@@ -9,7 +11,14 @@ interface SearchResultsProps {
 }
 
 const SearchResults: React.FC<SearchResultsProps> = props => {
-  const { searchResults, notFound, getCurrentData, getEightDayData, searchedCity } = props;
+  const {
+    searchResults,
+    isSearching,
+    notFound,
+    getCurrentData,
+    getEightDayData,
+    searchedCity,
+  } = props;
 
   return (
     <div className="SearchResults">
@@ -33,11 +42,13 @@ const SearchResults: React.FC<SearchResultsProps> = props => {
             </div>
           </div>
         ))
+      ) : !searchedCity ? (
+          <p>Search results</p>
+      ) : isSearching ? (
+        <Loading className="loading_small loading_searchResults" />
       ) : notFound && searchedCity ? (
         <p>We haven't found city "{searchedCity}", please specify your query</p>
-      ) : (
-        <p>Search results</p>
-      )}
+      ) : null}
     </div>
   );
 };
