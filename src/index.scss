@@ -68,25 +68,48 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
   align-items: center;
 
   .item {
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: center;
+    flex-wrap: wrap;
     height: 50%;
     width: 20%;
-    border-radius: 2em;
-    cursor: pointer;
-    box-shadow: 0px 2px 5px 0px gray;
-    transition: all 0.1s linear;
+    // border-radius: 2em;
+    // cursor: pointer;
+    // box-shadow: 0px 2px 5px 0px gray;
+    // transition: all 0.1s linear;
 
-    border: 2px solid #ccc;
-  }
+    // border: 2px solid #ccc;
 
-  .item:hover {
-    box-shadow: 0px 2px 7px 0px black;
-  }
+    &__title {
+      text-align: center;
+      flex-basis: 100%;
+      margin: 0;
+    }
 
-  h4 {
-    margin: 0;
+    &__buttons {
+      flex-basis: 100%;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    &__button {
+      font-style: normal;
+      font-size: 0.7em;
+    }
+
+    &__button_current {
+      // bottom: 0;
+      // left: 0;
+    }
+
+    &__button_eightday {
+      // bottom: 0;
+      // right: 0;
+    }
   }
 }
 

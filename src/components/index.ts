@@ -4,3 +4,6 @@ export { WeatherInfo } from './WeatherInfo/WeatherInfo';
 export { SearchResults } from './SearchResults/SearchResults';
 export { InfoSection } from './InfoSection/InfoSection';
 export { InfoItem } from './InfoItem/InfoItem';
+export { CurrentData } from './CurrentData/CurrentData';
+export { Placeholder } from './Placeholder/Placeholder';
+export { EightDaysData } from './EightDaysData/EightDaysData';

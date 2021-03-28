@@ -5,4 +5,4 @@ export {
   getDateFromMs,
 } from './time';
 export { translateAngleToDirection } from './translateAngleToDirection';
-export { processCityData } from './processCityData';
+export { processCurrentData } from './processCityData';
