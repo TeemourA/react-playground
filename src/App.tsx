@@ -8,59 +8,67 @@ import {
 import { SearchResults, WeatherInfo } from './components';
 
 const App: React.FC = () => {
-  const [activeCity, setActiveCity] = useState<any>(null);
+  const [currentData, setCurrentData] = useState<any>(null);
+  const [eightDaysData, setEightDaysData] = useState<any>(null);
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [isFetching, setFething] = useState(false);
-  // const [isSearhing, setSearching] = useState(false);
+  const [isSearhing, setSearching] = useState(true);
 
   const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
+      setSearching(true);
       fetchDataByName(cityName)
         .then(data => {
           setSearchResults([data.data]);
           setNotFound(false);
+          setSearching(false);
         })
         .catch(e => {
           setSearchResults([]);
           setNotFound(true);
+          setSearching(false);
           console.error(e.message);
         });
     }, 500),
     []
   );
 
-  const handleSearchResultClick = (cityID: number) => {
+  const handleCurrentDataClick = (cityID: number) => {
     setSearchInputValue('');
     setSearchResults([]);
     setFething(true);
     fetchDataByID(cityID)
       .then(data => {
         setFething(false);
-        setActiveCity(data.data);
+        setCurrentData(data.data);
         console.log(data.data);
       })
       .catch(e => {
         setFething(false);
-        setActiveCity(null);
+        setCurrentData(null);
         console.error(e.message);
       });
   };
 
   const searchInputHandler = (e: React.SyntheticEvent) => {
+    setNotFound(false);
     const cityName = (e.target as HTMLInputElement).value;
     setSearchInputValue(cityName);
     makeDebouncedRequestByName(cityName);
   };
 
   const clearWeatherInfoHandler = () => {
-    setActiveCity(null);
+    setCurrentData(null);
   };
 
-  const handleTestButtonClick = () => {
-    fetchDataByCoords(activeCity?.coord)
-      .then(data => console.log(data.data))
+  const handleEightDayClick = (coords: {lat: number, lon: number}) => {
+    fetchDataByCoords(coords)
+      .then(data => {
+        setEightDaysData(data.data.daily);
+        console.log(data.data.daily);
+      })
       .catch(e => console.error(e.message));
   };
 
@@ -76,16 +84,18 @@ const App: React.FC = () => {
       </header>
       <SearchResults
         searchResults={searchResults}
-        getCityData={handleSearchResultClick}
+        getCurrentData={handleCurrentDataClick}
+        getEightDayData={handleEightDayClick}
+        isSearching={isSearhing}
         notFound={notFound}
         searchedCity={searchInputValue}
       />
       <WeatherInfo
-        cityData={activeCity}
+        currentData={currentData}
+        eightDaysData={eightDaysData}
         isFetching={isFetching}
         clear={clearWeatherInfoHandler}
       />
-      <button onClick={handleTestButtonClick}>BUTTON</button>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const localTimeConfig = {
   noSeconds: true,
 };
 
-const processCityData = (cityData: any) => ({
+const processCurrentData = (cityData: any) => ({
   name: cityData?.name,
   country: cityData?.sys.country,
   weatherIcon: `http://openweathermap.org/img/wn/${cityData?.weather[0].icon}@2x.png`,
@@ -33,4 +33,4 @@ const processCityData = (cityData: any) => ({
   weekDay: getWeekDayFromDate(getDateFromMs(cityData?.dt)),
 });
 
-export { processCityData };
+export { processCurrentData };

@@ -68,25 +68,48 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
   align-items: center;
 
   .item {
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: center;
+    flex-wrap: wrap;
     height: 50%;
     width: 20%;
-    border-radius: 2em;
-    cursor: pointer;
-    box-shadow: 0px 2px 5px 0px gray;
-    transition: all 0.1s linear;
+    // border-radius: 2em;
+    // cursor: pointer;
+    // box-shadow: 0px 2px 5px 0px gray;
+    // transition: all 0.1s linear;
 
-    border: 2px solid #ccc;
-  }
+    // border: 2px solid #ccc;
 
-  .item:hover {
-    box-shadow: 0px 2px 7px 0px black;
-  }
+    &__title {
+      text-align: center;
+      flex-basis: 100%;
+      margin: 0;
+    }
 
-  h4 {
-    margin: 0;
+    &__buttons {
+      flex-basis: 100%;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    &__button {
+      font-style: normal;
+      font-size: 0.7em;
+    }
+
+    &__button_current {
+      // bottom: 0;
+      // left: 0;
+    }
+
+    &__button_eightday {
+      // bottom: 0;
+      // right: 0;
+    }
   }
 }
 
@@ -278,12 +301,7 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 }
 
 // loading animation
-.lds-dual-ring {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  justify-self: center;
-  align-self: center;
-
+.loading {
   display: inline-block;
   width: 80px;
   height: 80px;
@@ -297,15 +315,33 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
     border-radius: 50%;
     border: 6px solid $brand;
     border-color: $brand transparent $brand transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+    animation: loading 1.2s linear infinite;
   }
 
-  @keyframes lds-dual-ring {
+  @keyframes loading {
     0% {
       transform: rotate(0deg);
     }
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  &_small::after {
+    width: 15px;
+    height: 15px;
+  }
+
+  &_weatherInfo {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    justify-self: center;
+    align-self: center;
+  }
+
+  &_searchResults {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
