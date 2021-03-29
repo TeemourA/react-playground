@@ -6,4 +6,4 @@ export {
   getWeekDayFromDate,
 } from './time';
 export { translateAngleToDirection } from './translateAngleToDirection';
-export { processCurrentData } from './processCityData';
+export { processCurrentData } from './processCurrentData';

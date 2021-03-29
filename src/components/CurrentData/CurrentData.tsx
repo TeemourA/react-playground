@@ -18,7 +18,7 @@ const CurrentData: React.FC<CurrentWeatherDataProps> = props => {
         <div className="title__plate">
           <h3 className="title__text">{`${data.name}, ${
             data.country
-          } on ${getCurrentDate()}`}</h3>
+          } on ${data.weekDay},  ${getCurrentDate()}`}</h3>
           <span className="title__time">{`Local time: ${data.localTime}`}</span>
         </div>
         <figure>
