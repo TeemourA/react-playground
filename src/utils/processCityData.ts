@@ -3,6 +3,7 @@ import {
   convertDateToTime,
   getDateFromMs,
   getDateFromTimezone,
+  getWeekDayFromDate,
 } from './index';
 
 const localTimeConfig = {
@@ -17,7 +18,7 @@ const processCityData = (cityData: any) => ({
   temp: `${Math.round(cityData?.main.temp)} ℃`,
   feelsLike: `${Math.round(cityData?.main.feels_like)} ℃`,
   cloudCoverage: `${cityData?.clouds.all}%`,
-  wind: `${cityData?.wind.speed} m/s | ${translateAngleToDirection(
+  wind: `${cityData?.wind.speed.toFixed(1)} m/s | ${translateAngleToDirection(
     cityData?.wind.deg
   )}`,
   visibility: `${(cityData?.visibility / 1000).toFixed(1)}km`,
@@ -29,6 +30,7 @@ const processCityData = (cityData: any) => ({
     getDateFromTimezone(cityData?.timezone),
     localTimeConfig
   ),
+  weekDay: getWeekDayFromDate(getDateFromMs(cityData?.dt)),
 });
 
 export { processCityData };

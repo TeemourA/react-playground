@@ -1,3 +1,13 @@
+enum Weekdays {
+  'Sunday' = 0,
+  'Monday' = 1,
+  'Tuesday' = 2,
+  'Wednesday' = 3,
+  'Thursday' = 4,
+  'Friday' = 5,
+  'Saturday' = 6,
+}
+
 const getCurrentDate = () => {
   const today = new Date();
 
@@ -11,10 +21,7 @@ const getCurrentDate = () => {
   return date;
 };
 
-const convertDateToTime = (
-  date: Date,
-  config?: { noSeconds: boolean }
-) => {
+const convertDateToTime = (date: Date, config?: { noSeconds: boolean }) => {
   let time;
 
   const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
@@ -44,9 +51,16 @@ const getDateFromTimezone = (timezone: number) => {
   return new Date(cityTime);
 };
 
+const getWeekDayFromDate = (date: Date) => {
+  const day = date.getDay();
+
+  return Weekdays[day];
+};
+
 export {
   getCurrentDate,
   getDateFromMs,
   getDateFromTimezone,
   convertDateToTime,
+  getWeekDayFromDate,
 };
