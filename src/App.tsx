@@ -8,6 +8,7 @@ import {
 import { SearchResults, WeatherInfo } from './components';
 
 const App: React.FC = () => {
+  const [searchedCity, setSearchedCity] = useState<any>(null);
   const [currentData, setCurrentData] = useState<any>(null);
   const [eightDaysData, setEightDaysData] = useState<any>(null);
   const [searchInputValue, setSearchInputValue] = useState('');
@@ -18,7 +19,6 @@ const App: React.FC = () => {
 
   const makeDebouncedRequestByName = useCallback(
     debounce((cityName: string) => {
-      setSearching(true);
       fetchDataByName(cityName)
         .then(data => {
           setSearchResults([data.data]);
@@ -37,7 +37,8 @@ const App: React.FC = () => {
 
   const handleCurrentDataClick = (cityID: number) => {
     setSearchInputValue('');
-    setSearchResults([]);
+    // setSearchResults([]);
+    setEightDaysData(null);
     setFething(true);
     fetchDataByID(cityID)
       .then(data => {
@@ -54,6 +55,7 @@ const App: React.FC = () => {
 
   const searchInputHandler = (e: React.SyntheticEvent) => {
     setNotFound(false);
+    setSearching(true);
     const cityName = (e.target as HTMLInputElement).value;
     setSearchInputValue(cityName);
     makeDebouncedRequestByName(cityName);
@@ -61,15 +63,28 @@ const App: React.FC = () => {
 
   const clearWeatherInfoHandler = () => {
     setCurrentData(null);
+    setEightDaysData(null);
   };
 
-  const handleEightDayClick = (coords: {lat: number, lon: number}) => {
+  const handleEightDayClick = (
+    coords: { lat: number; lon: number },
+    cityData: any
+  ) => {
+    setSearchInputValue('');
+    // setSearchResults([]);
+    setCurrentData(null);
+    setFething(true);
     fetchDataByCoords(coords)
       .then(data => {
+        setSearchedCity(cityData);
         setEightDaysData(data.data.daily);
+        setFething(false);
         console.log(data.data.daily);
       })
-      .catch(e => console.error(e.message));
+      .catch(e => {
+        setFething(false);
+        console.error(e.message);
+      });
   };
 
   return (
@@ -93,6 +108,7 @@ const App: React.FC = () => {
       <WeatherInfo
         currentData={currentData}
         eightDaysData={eightDaysData}
+        searchedCity={searchedCity}
         isFetching={isFetching}
         clear={clearWeatherInfoHandler}
       />

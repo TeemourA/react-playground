@@ -7,7 +7,7 @@ interface SearchResultsProps {
   notFound: boolean;
   searchedCity: string;
   getCurrentData: (cityID: number) => void;
-  getEightDayData: (coords: { lat: number; lon: number }) => void;
+  getEightDayData: (coords: { lat: number; lon: number }, cityData: any) => void;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = props => {
@@ -34,7 +34,7 @@ const SearchResults: React.FC<SearchResultsProps> = props => {
                 Current
               </i>
               <i
-                onClick={() => getEightDayData(city.coord)}
+                onClick={() => getEightDayData(city.coord, city)}
                 className="item__button_eightday item__button"
               >
                 8-day

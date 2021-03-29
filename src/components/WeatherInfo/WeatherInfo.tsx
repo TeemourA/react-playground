@@ -4,12 +4,13 @@ import { CurrentData, EightDaysData, Loading, Placeholder } from '../index';
 interface WeatherInfoProps {
   currentData: any;
   eightDaysData: any;
+  searchedCity: any;
   isFetching: boolean;
   clear: () => void;
 }
 
 const WeatherInfo: React.FC<WeatherInfoProps> = props => {
-  const { currentData, eightDaysData, isFetching, clear } = props;
+  const { currentData, eightDaysData, searchedCity, isFetching, clear } = props;
 
   return (
     <div className="WeatherInfo">
@@ -17,7 +18,7 @@ const WeatherInfo: React.FC<WeatherInfoProps> = props => {
         {currentData && !isFetching ? (
           <CurrentData currentData={currentData} clear={clear} />
         ) : eightDaysData && !isFetching ? (
-          <EightDaysData />
+          <EightDaysData eightDaysData={eightDaysData} searchedCity={searchedCity} clear={clear} />
         ) : isFetching ? (
           <Loading className="loading_weatherInfo" />
         ) : (

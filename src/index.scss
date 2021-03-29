@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 $brand: rgb(187, 245, 247);
+$dark-brand: rgb(116, 194, 197);
 $headerHeight: 10vh;
 $searchResultsHeight: 10vh;
 $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
@@ -49,6 +50,7 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       outline: none;
       transition: all 0.3s linear;
       background-color: #ccc;
+      font-size: 1.5em;
       text-align: center;
       align-self: center;
     }
@@ -70,17 +72,8 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
   .item {
     position: relative;
     display: flex;
-    // align-items: center;
-    // justify-content: center;
     flex-wrap: wrap;
-    height: 50%;
-    width: 20%;
-    // border-radius: 2em;
-    // cursor: pointer;
-    // box-shadow: 0px 2px 5px 0px gray;
-    // transition: all 0.1s linear;
-
-    // border: 2px solid #ccc;
+    row-gap: 0.5em;
 
     &__title {
       text-align: center;
@@ -92,13 +85,26 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
       flex-basis: 100%;
 
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
+      column-gap: 1em;
     }
 
     &__button {
+      background-color: $brand;
+      border: 1px solid gray;
+      border-radius: 0.2em;
+      padding: 0.3em;
+
       font-style: normal;
       font-size: 0.7em;
+
+      cursor: pointer;
+      transition: all 0.1s linear;
+    }
+
+    &__button:hover {
+      background-color: $dark-brand;
     }
 
     &__button_current {
