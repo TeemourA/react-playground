@@ -1,4 +1,5 @@
 import React from 'react';
+import { processEightDaysData } from '../../utils';
 
 interface EightDaysDataProps {
   eightDaysData: any;
@@ -8,12 +9,13 @@ interface EightDaysDataProps {
 
 const EightDaysData: React.FC<EightDaysDataProps> = props => {
   const { eightDaysData, searchedCity, clear } = props;
+  
+  const data = processEightDaysData(eightDaysData);
 
   return <div>
-    {JSON.stringify(eightDaysData)}
+    {console.log(data)}
     {}
     <i className="far fa-times-circle close-button" onClick={clear}></i>
-
   </div>;
 };
 

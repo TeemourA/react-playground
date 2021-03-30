@@ -8,17 +8,29 @@ enum Weekdays {
   'Saturday' = 6,
 }
 
+const getMonth = (date: Date) =>
+  date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+
 const getCurrentDate = () => {
   const today = new Date();
 
-  const month =
-    today.getMonth() + 1 < 10
-      ? `0${today.getMonth() + 1}`
-      : today.getMonth() + 1;
-
-  const date = `${today.getDate()}.${month}.${today.getFullYear()}`;
+  const date = `${today.getDate()}.${getMonth(today)}.${today.getFullYear()}`;
 
   return date;
+};
+
+const getFormattedDatefromDate = (date: Date, config?: 'dd.mm.yyyy') => {
+  const day = date.getDate();
+  const month = getMonth(date);
+  const year = date.getFullYear();
+  const shortenedWeekDay = getWeekDayFromDate(date).slice(0, 3);
+
+  switch (config) {
+    case 'dd.mm.yyyy':
+      return `${day}.${month}.${year}`;
+    default:
+      return `${shortenedWeekDay} ${day}`;
+  }
 };
 
 const convertDateToTime = (date: Date, config?: { noSeconds: boolean }) => {
@@ -63,4 +75,5 @@ export {
   getDateFromTimezone,
   convertDateToTime,
   getWeekDayFromDate,
+  getFormattedDatefromDate,
 };

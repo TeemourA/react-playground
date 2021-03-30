@@ -79,7 +79,7 @@ const App: React.FC = () => {
         setSearchedCity(cityData);
         setEightDaysData(data.data.daily);
         setFething(false);
-        console.log(data.data.daily);
+        console.log(data.data);
       })
       .catch(e => {
         setFething(false);

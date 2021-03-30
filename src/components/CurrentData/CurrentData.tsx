@@ -1,5 +1,5 @@
 import React from 'react';
-import { InfoSection, InfoItem } from '../index';
+import { CurrentDataSection, CurrentDataItem } from '../index';
 import { getCurrentDate, processCurrentData } from '../../utils';
 
 interface CurrentWeatherDataProps {
@@ -16,9 +16,9 @@ const CurrentData: React.FC<CurrentWeatherDataProps> = props => {
     <>
       <div className="title">
         <div className="title__plate">
-          <h3 className="title__text">{`${data.name}, ${
-            data.country
-          } on ${data.weekDay},  ${getCurrentDate()}`}</h3>
+          <h3 className="title__text">{`${data.name}, ${data.country} on ${
+            data.weekDay
+          },  ${getCurrentDate()}`}</h3>
           <span className="title__time">{`Local time: ${data.localTime}`}</span>
         </div>
         <figure>
@@ -31,21 +31,21 @@ const CurrentData: React.FC<CurrentWeatherDataProps> = props => {
         </figure>
       </div>
       <div className="info">
-        <InfoSection className="info__section-1">
-          <InfoItem title="Temp" data={data.temp} />
-          <InfoItem title="Feels like" data={data.feelsLike} />
-          <InfoItem title="Cloud coverage" data={data.cloudCoverage} />
-        </InfoSection>
-        <InfoSection className="info__section-2">
-          <InfoItem title="Wind" data={data.wind} />
-          <InfoItem title="Pressure" data={data.pressure} />
-          <InfoItem title="Visibility" data={data.visibility} />
-        </InfoSection>
-        <InfoSection className="info__section-3">
-          <InfoItem title="Humidity" data={data.humidity} />
-          <InfoItem title="Sunrise" data={data.sunriseTime} />
-          <InfoItem title="Sunset" data={data.sunsetTime} />
-        </InfoSection>
+        <CurrentDataSection className="info__section-1">
+          <CurrentDataItem title="Temp" data={data.temp} />
+          <CurrentDataItem title="Feels like" data={data.feelsLike} />
+          <CurrentDataItem title="Cloud coverage" data={data.cloudCoverage} />
+        </CurrentDataSection>
+        <CurrentDataSection className="info__section-2">
+          <CurrentDataItem title="Wind" data={data.wind} />
+          <CurrentDataItem title="Pressure" data={data.pressure} />
+          <CurrentDataItem title="Visibility" data={data.visibility} />
+        </CurrentDataSection>
+        <CurrentDataSection className="info__section-3">
+          <CurrentDataItem title="Humidity" data={data.humidity} />
+          <CurrentDataItem title="Sunrise" data={data.sunriseTime} />
+          <CurrentDataItem title="Sunset" data={data.sunsetTime} />
+        </CurrentDataSection>
       </div>
       <i className="far fa-times-circle close-button" onClick={clear}></i>
     </>

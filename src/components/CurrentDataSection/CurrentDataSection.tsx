@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface InfoSectionProps {
+interface CurrentDataSectionProps {
   className?: string;
 };
 
-const InfoSection: React.FC<InfoSectionProps> = props => {
+const CurrentDataSection: React.FC<CurrentDataSectionProps> = props => {
   const { className, children } = props;
 
   return <section className={className ?? ''}>{children}</section>;
 };
-export { InfoSection };
+export { CurrentDataSection };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface InfoItemProps {
+interface CurrentDataItemProps {
   title: string;
   data: string;
   itemClassName?: string;
@@ -8,7 +8,7 @@ interface InfoItemProps {
   dataClassName?: string;
 }
 
-const InfoItem: React.FC<InfoItemProps> = props => {
+const CurrentDataItem: React.FC<CurrentDataItemProps> = props => {
   const { title, data, itemClassName, titleClassName, dataClassName } = props;
 
   return (
@@ -19,4 +19,4 @@ const InfoItem: React.FC<InfoItemProps> = props => {
   );
 };
 
-export { InfoItem };
+export { CurrentDataItem };
