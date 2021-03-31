@@ -11,6 +11,9 @@ enum Weekdays {
 const getMonth = (date: Date) =>
   date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
 
+const getDay = (date: Date) =>
+  date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+
 const getCurrentDate = () => {
   const today = new Date();
 
@@ -20,7 +23,7 @@ const getCurrentDate = () => {
 };
 
 const getFormattedDatefromDate = (date: Date, config?: 'dd.mm.yyyy') => {
-  const day = date.getDate();
+  const day = getDay(date);
   const month = getMonth(date);
   const year = date.getFullYear();
   const shortenedWeekDay = getWeekDayFromDate(date).slice(0, 3);

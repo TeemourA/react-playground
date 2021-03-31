@@ -55,6 +55,7 @@ const App: React.FC = () => {
 
   const searchInputHandler = (e: React.SyntheticEvent) => {
     setNotFound(false);
+    setSearchResults([]);
     setSearching(true);
     const cityName = (e.target as HTMLInputElement).value;
     setSearchInputValue(cityName);

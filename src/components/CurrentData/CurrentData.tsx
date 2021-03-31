@@ -14,12 +14,12 @@ const CurrentData: React.FC<CurrentWeatherDataProps> = props => {
 
   return (
     <>
-      <div className="title">
-        <div className="title__plate">
-          <h3 className="title__text">{`${data.name}, ${data.country} on ${
+      <div className="current-title">
+        <div className="current-title__plate">
+          <h3 className="current-title__text">{`${data.name}, ${data.country} on ${
             data.weekDay
           },  ${getCurrentDate()}`}</h3>
-          <span className="title__time">{`Local time: ${data.localTime}`}</span>
+          <span className="current-title__time">{`Local time: ${data.localTime}`}</span>
         </div>
         <figure>
           <img
@@ -30,18 +30,18 @@ const CurrentData: React.FC<CurrentWeatherDataProps> = props => {
           <figcaption>{data.iconDescription}</figcaption>
         </figure>
       </div>
-      <div className="info">
-        <CurrentDataSection className="info__section-1">
+      <div className="current-info">
+        <CurrentDataSection className="current-info__section-1">
           <CurrentDataItem title="Temp" data={data.temp} />
           <CurrentDataItem title="Feels like" data={data.feelsLike} />
           <CurrentDataItem title="Cloud coverage" data={data.cloudCoverage} />
         </CurrentDataSection>
-        <CurrentDataSection className="info__section-2">
+        <CurrentDataSection className="current-info__section-2">
           <CurrentDataItem title="Wind" data={data.wind} />
           <CurrentDataItem title="Pressure" data={data.pressure} />
           <CurrentDataItem title="Visibility" data={data.visibility} />
         </CurrentDataSection>
-        <CurrentDataSection className="info__section-3">
+        <CurrentDataSection className="current-info__section-3">
           <CurrentDataItem title="Humidity" data={data.humidity} />
           <CurrentDataItem title="Sunrise" data={data.sunriseTime} />
           <CurrentDataItem title="Sunset" data={data.sunsetTime} />

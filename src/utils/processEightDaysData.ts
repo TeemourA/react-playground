@@ -6,7 +6,8 @@ import {
 
 const processEightDaysData = (eightDaysData: any) =>
   eightDaysData?.map((day: any) => ({
-    weatherIcon: day.weather[0].icon,
+    weatherIcon: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
+    iconDescription: day.weather[0].description,
     date: getFormattedDatefromDate(getDateFromMs(day.dt)),
     temp: {
       max: `${Math.round(day.temp.max)} ℃`,
