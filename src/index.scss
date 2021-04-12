@@ -246,7 +246,7 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 
     .eight-days-info {
       grid-column: 2 / 5;
-      grid-row: 2 / -1;
+      grid-row: 1 / -1;
 
       &__list {
         display: grid;
@@ -260,16 +260,42 @@ $weatherInfoHeight: 100vh - ($headerHeight + $searchResultsHeight);
 
       &__item {
         display: grid;
-        grid-template: 1fr / 1fr;
+        grid-template: 33% 33% 33% / 1fr;
         align-items: center;
         justify-content: center;
         height: 100%;
         width: 100%;
         padding: 10px;
+
       }
 
-      figure {
+      &__title {
+        text-align: center;
+      }
+
+      &__figure {
         margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row-reverse;
+      }
+
+      &__img {
+        width: 50px;
+        height: 50px;
+      }
+
+      &__temp {
+        text-align: center;
+
+        &_max {
+          color: darkorange;
+        }
+
+        &_min {
+          color: darkblue;
+        }
       }
     }
 
