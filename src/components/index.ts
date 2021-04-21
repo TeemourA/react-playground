@@ -7,3 +7,5 @@ export { CurrentDataItem } from './CurrentDataItem/CurrentDataItem';
 export { CurrentData } from './CurrentData/CurrentData';
 export { Placeholder } from './Placeholder/Placeholder';
 export { EightDaysData } from './EightDaysData/EightDaysData';
+export { Header } from './Header/Header';
+export { Search } from './Search/Search';

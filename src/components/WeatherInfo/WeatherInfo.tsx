@@ -1,15 +1,15 @@
 import React from 'react';
 import { CurrentData, EightDaysData, Loading, Placeholder } from '../index';
 
-interface WeatherInfoProps {
-  currentData: any;
-  eightDaysData: any;
-  searchedCity: any;
-  isFetching: boolean;
-  clear: () => void;
-}
+// interface WeatherInfoProps {
+//   currentData: any;
+//   eightDaysData: any;
+//   searchedCity: any;
+//   isFetching: boolean;
+//   clear: () => void;
+// }
 
-const WeatherInfo: React.FC<WeatherInfoProps> = props => {
+const WeatherInfo: React.FC<any> = props => {
   const { currentData, eightDaysData, searchedCity, isFetching, clear } = props;
 
   return (

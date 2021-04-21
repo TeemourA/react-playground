@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiKey } from '../constants/apiKey';
+import { apiKey } from '../../constants/apiKey';
 
 const fetchDataByID = (cityID: number | string, daysCount?: number) =>
   axios(
