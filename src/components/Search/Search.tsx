@@ -3,18 +3,24 @@ import { useAppDispatch, useAppSelector } from '../../hooks/predefinedHooks';
 import {
   fetchCityByName,
   setSearchedCity,
+  setSearchStatus,
+  SearchStatuses,
 } from '../../redux/features/search/searchSlice';
 
 const Search: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { searchedCity, placeholder } = useAppSelector(
-    ({ search }) => search
-  );
+  const { searchedCity, placeholder } = useAppSelector(({ search }) => search);
 
-  const handleSearch = (e: React.SyntheticEvent) => {
+  const handleSearchInput = (e: React.SyntheticEvent) => {
     const cityName = (e.target as HTMLInputElement).value;
-
     dispatch(setSearchedCity(cityName));
+
+    if (cityName.length === 0) {
+      dispatch(setSearchStatus(SearchStatuses.idle));
+      return;
+    }
+
+    dispatch(setSearchStatus(SearchStatuses.searching));
     dispatch(fetchCityByName({ cityName }));
   };
 
@@ -22,7 +28,7 @@ const Search: React.FC = () => {
     <input
       placeholder={placeholder}
       value={searchedCity}
-      onChange={(e) => handleSearch(e)}
+      onChange={(e) => handleSearchInput(e)}
     />
   );
 };

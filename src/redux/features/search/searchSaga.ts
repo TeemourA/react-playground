@@ -1,31 +1,33 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, debounce } from 'redux-saga/effects';
 import { fetchDataByName } from '../../requests/requests';
 import {
-  setSearching,
-  setNotFound,
+  setSearchStatus,
   setSearchResults,
   fetchCityByName,
+  SearchStatuses,
 } from '../search/searchSlice';
 
 function* handleFetchCityByName(action: any): Generator<any> {
   try {
-    yield put(setNotFound(false));
-    yield put(setSearching(true));
+    const { cityName } = action.payload;
+    // if (cityName.length === 0) {
+    //   return put(setSearchStatus(SearchStatuses.idle));
+    // }
+
+    // yield put(setSearchStatus(SearchStatuses.searching));
     yield put(setSearchResults([]));
 
-    const {cityName} = action.payload;
     const response: any = yield call(() => fetchDataByName(cityName));
     const { data } = response;
 
     yield put(setSearchResults([data]));
-    yield put(setSearching(false));
+    yield put(setSearchStatus(SearchStatuses.idle));
   } catch (error) {
-    console.log(error);
-    yield put(setSearching(false));
-    yield put(setNotFound(true));
+    console.error(error.message);
+    yield put(setSearchStatus(SearchStatuses.notFound));
   }
 }
 
 export function* watchSearchSaga() {
-  yield takeLatest(fetchCityByName.type, handleFetchCityByName);
+  yield debounce(500, fetchCityByName.type, handleFetchCityByName);
 }

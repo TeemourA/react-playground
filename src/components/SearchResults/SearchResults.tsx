@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/predefinedHooks';
+import { SearchStatuses } from '../../redux/features/search/searchSlice';
 import { Loading } from '../index';
 
 // interface SearchResultsProps {
@@ -12,7 +13,7 @@ import { Loading } from '../index';
 // }
 
 const SearchResults: React.FC = () => {
-  const { searchResults, searchedCity, isSearching, notFound } = useAppSelector(
+  const { searchResults, searchedCity, searchStatus } = useAppSelector(
     ({ search }) => search
   );
 
@@ -40,9 +41,9 @@ const SearchResults: React.FC = () => {
         ))
       ) : !searchedCity ? (
         <p>Search results</p>
-      ) : isSearching ? (
+      ) : searchStatus === SearchStatuses.searching ? (
         <Loading className="loading_small loading_searchResults" />
-      ) : notFound && searchedCity ? (
+      ) : searchStatus === SearchStatuses.notFound && searchedCity ? (
         <p>We haven't found city "{searchedCity}", please specify your query</p>
       ) : null}
     </div>
