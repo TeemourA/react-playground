@@ -10,9 +10,6 @@ type SearchStatus =
   | SearchStatuses.idle
   | SearchStatuses.searching
   | SearchStatuses.notFound;
-
-console.log(SearchStatuses.idle === 'idle');
-
 interface SearchState {
   searchedCity: string;
   searchResults: any[];

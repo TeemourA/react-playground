@@ -4,6 +4,7 @@ import {
   fetchCityByName,
   setSearchedCity,
   setSearchStatus,
+  setSearchResults,
   SearchStatuses,
 } from '../../redux/features/search/searchSlice';
 
@@ -14,6 +15,7 @@ const Search: React.FC = () => {
   const handleSearchInput = (e: React.SyntheticEvent) => {
     const cityName = (e.target as HTMLInputElement).value;
     dispatch(setSearchedCity(cityName));
+    dispatch(setSearchResults([]));
 
     if (cityName.length === 0) {
       dispatch(setSearchStatus(SearchStatuses.idle));
@@ -21,7 +23,7 @@ const Search: React.FC = () => {
     }
 
     dispatch(setSearchStatus(SearchStatuses.searching));
-    dispatch(fetchCityByName({ cityName }));
+    dispatch(fetchCityByName(cityName));
   };
 
   return (

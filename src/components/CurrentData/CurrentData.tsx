@@ -3,14 +3,14 @@ import { CurrentDataSection, CurrentDataItem } from '../index';
 import { getCurrentDate, processCurrentData } from '../../utils';
 
 interface CurrentWeatherDataProps {
-  currentData: any;
+  data: any;
   clear: () => void;
 }
 
 const CurrentData: React.FC<CurrentWeatherDataProps> = props => {
-  const { currentData, clear } = props;
+  const { data, clear } = props;
 
-  const data = processCurrentData(currentData);
+  // const data = processCurrentData(currentData);
 
   return (
     <>

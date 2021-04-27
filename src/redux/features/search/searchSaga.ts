@@ -5,20 +5,12 @@ import {
   setSearchResults,
   fetchCityByName,
   SearchStatuses,
-} from '../search/searchSlice';
+} from './searchSlice';
 
 function* handleFetchCityByName(action: any): Generator<any> {
   try {
-    const { cityName } = action.payload;
-    // if (cityName.length === 0) {
-    //   return put(setSearchStatus(SearchStatuses.idle));
-    // }
-
-    // yield put(setSearchStatus(SearchStatuses.searching));
-    yield put(setSearchResults([]));
-
-    const response: any = yield call(() => fetchDataByName(cityName));
-    const { data } = response;
+    const cityName = action.payload;
+    const { data }: any = yield call(() => fetchDataByName(cityName));
 
     yield put(setSearchResults([data]));
     yield put(setSearchStatus(SearchStatuses.idle));

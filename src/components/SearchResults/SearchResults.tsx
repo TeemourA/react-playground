@@ -2,6 +2,10 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/predefinedHooks';
 import { SearchStatuses } from '../../redux/features/search/searchSlice';
 import { Loading } from '../index';
+import {
+  fetchCurrentData,
+  fetchEightDaysData,
+} from '../../redux/features/weatherData/weatherDataSlice';
 
 // interface SearchResultsProps {
 //   searchResults: any[];
@@ -13,6 +17,7 @@ import { Loading } from '../index';
 // }
 
 const SearchResults: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { searchResults, searchedCity, searchStatus } = useAppSelector(
     ({ search }) => search
   );
@@ -25,13 +30,13 @@ const SearchResults: React.FC = () => {
             <h4 className="item__title">{`${city.name}, ${city.sys.country}`}</h4>
             <div className="item__buttons">
               <i
-                onClick={() => {}}
+                onClick={() => dispatch(fetchCurrentData(city.id))}
                 className="item__button_current item__button"
               >
                 Current
               </i>
               <i
-                onClick={() => {}}
+                onClick={() => dispatch(fetchEightDaysData(city.coord))}
                 className="item__button_eightday item__button"
               >
                 8-day

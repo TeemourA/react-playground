@@ -2,21 +2,18 @@ import React from 'react';
 import { processEightDaysData } from '../../utils';
 
 interface EightDaysDataProps {
-  eightDaysData: any;
+  data: any;
   searchedCity: any;
   clear: () => void;
 }
 
 const EightDaysData: React.FC<EightDaysDataProps> = props => {
-  const { eightDaysData, searchedCity, clear } = props;
-
-  const data = processEightDaysData(eightDaysData);
-  console.log(data);
+  const { data, searchedCity, clear } = props;
 
   return (
     <div className="eight-days-info">
       <ul className="eight-days-info__list">
-        {data.map((day: any, index: number) => (
+        {data?.map((day: any, index: number) => (
           <li key={index} className="eight-days-info__item">
             <span className="eight-days-info__title">{day.date}</span>
             <figure className="eight-days-info__figure">
